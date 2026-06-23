@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git init *)",
+      "Bash(git -C /Users/kimjungsik/Documents/AI/Cluade/outlook log --oneline -3)",
+      "Bash(node -e ' *)",
+      "Bash(curl -L -o /tmp/outlook-icon-test.png \"https://res.cdn.office.net/assets/mail/pwa/v1/images/appicons/icon-192.png\")",
+      "Bash(curl -L -o /tmp/outlook-icon.png \"https://res.cdn.office.net/assets/mail/pwa/v1/images/appicons/icon-512.png\")",
+      "Bash(convert --version)",
+      "Bash(sips --version)",
+      "Bash(node -e \"require\\('sharp'\\)\")",
+      "Bash(curl -L -A \"Mozilla/5.0\" -o /tmp/ol-icon.png \"https://outlookmobile.com/img/outlook-logo.png\")",
+      "Bash(curl -L -A \"Mozilla/5.0\" -o /tmp/ol-icon.png \"https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg/512px-Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg.png\")",
+      "Bash(curl -L -A \"Mozilla/5.0\" -o /tmp/ol-icon.png \"https://upload.wikimedia.org/wikipedia/commons/d/df/Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg\")",
+      "Bash(git branch *)"
+    ]
+  }
+}

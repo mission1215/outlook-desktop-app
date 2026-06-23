@@ -1,0 +1,40 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-mac:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install
+        working-directory: outlook-app
+      - run: npm run build:mac
+        working-directory: outlook-app
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mac-build
+          path: |
+            outlook-app/dist/*.dmg
+            outlook-app/dist/*.zip
+
+  build-win:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install
+        working-directory: outlook-app
+      - run: npm run build:win
+        working-directory: outlook-app
+      - uses: actions/upload-artifact@v4
+        with:
+          name: win-build
+          path: outlook-app/dist/*.exe
