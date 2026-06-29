@@ -43,6 +43,12 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  // 모든 요청에 모바일 UA 적용 (새 창 포함)
+  session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
+    details.requestHeaders['User-Agent'] = MOBILE_UA;
+    callback({ requestHeaders: details.requestHeaders });
+  });
+
   session.defaultSession.setPermissionRequestHandler(
     (webContents, permission, callback) => {
       if (permission === 'notifications') {
