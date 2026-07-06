@@ -1,5 +1,26 @@
-const { app, BrowserWindow, session } = require('electron');
+const { app, BrowserWindow, session, shell } = require('electron');
 const path = require('path');
+
+// 앱 내에서 열 Microsoft 도메인
+const MICROSOFT_DOMAINS = [
+  'microsoft.com',
+  'office.com',
+  'office365.com',
+  'microsoftonline.com',
+  'sharepoint.com',
+  'live.com',
+  'outlook.com',
+  'onedrive.live.com',
+];
+
+function isMicrosoftUrl(url) {
+  try {
+    const host = new URL(url).hostname;
+    return MICROSOFT_DOMAINS.some(domain => host === domain || host.endsWith('.' + domain));
+  } catch {
+    return false;
+  }
+}
 
 const OUTLOOK_URL = 'https://outlook.live.com/mail/';
 
@@ -24,6 +45,22 @@ function createWindow() {
 
   mainWindow.loadURL(OUTLOOK_URL, {
     userAgent: MOBILE_UA,
+  });
+
+  // 링크 분기: Microsoft → 앱 내 새 창, 외부 → 시스템 브라우저
+  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+    if (isMicrosoftUrl(url)) {
+      return { action: 'allow' };
+    }
+    shell.openExternal(url);
+    return { action: 'deny' };
+  });
+
+  mainWindow.webContents.on('will-navigate', (event, url) => {
+    if (!isMicrosoftUrl(url)) {
+      event.preventDefault();
+      shell.openExternal(url);
+    }
   });
 
   if (process.platform === 'darwin') {
